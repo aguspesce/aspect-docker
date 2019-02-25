@@ -1,4 +1,4 @@
-# Script for running ASPECT inside a Docker container
+# ASPECT & Docker script
 
 The script makes easier to run [`ASPECT`](https://aspect.geodynamics.org/) installed
 inside the [`gassmoeller/aspect`](https://github.com/gassmoeller/aspect) Docker
