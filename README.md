@@ -38,4 +38,4 @@ Then you can run `ASPECT` with just the following line:
 
     ./aspect-docker my-model.prm
 
-After finished, the output will be inside the current working directory.
+After finished, the output will be inside the parent directory of the `.prm` file.

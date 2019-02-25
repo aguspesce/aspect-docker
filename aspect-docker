@@ -17,10 +17,16 @@ GUEST_HOME=/home/dealii
 ASPECT=$GUEST_HOME/aspect/aspect
 
 # Target where the host directory will be mounted
-MODELPATH=$GUEST_HOME/model
+MOUNT_DIR=$GUEST_HOME/model
+
+# Get the model filename from the first argument
+MODEL_PATH=$1
 
 # Get output directory from the .prm file
-OUTPUT_DIR=$(grep -i "set Output directory" $1 | awk '{printf $NF}')
+OUTPUT_DIR_NAME=$(grep -i "set Output directory" $MODEL_PATH | awk '{printf $NF}')
+
+# Set the path where the output will be copied
+OUTPUT_DIR=$(dirname $MODEL_PATH)/$OUTPUT_DIR
 
 # Run ASPECT
-docker run --rm -it -v "$(pwd):$MODELPATH" $IMAGE:$TAG /bin/bash -c "$ASPECT $MODELPATH/$1; cp -r $OUTPUT_DIR $MODELPATH"
+docker run --rm -it -v "$(pwd):$MOUNT_DIR" $IMAGE:$TAG /bin/bash -c "$ASPECT $MOUNT_DIR/$MODEL_PATH; cp -r $OUTPUT_DIR_NAME $MOUNT_DIR/$OUTPUT_DIR"
