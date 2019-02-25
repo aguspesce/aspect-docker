@@ -13,4 +13,4 @@ TAG=latest
 OUTPUT_DIR=$(grep -i "set Output directory" $1 | awk '{printf $NF}')
 
 # Run ASPECT
-docker run -it -v "$(pwd):$MODELPATH" $IMAGE:$TAG /bin/bash -c "$ASPECT $MODELPATH/$1; cp -r $OUTPUT_DIR $MODELPATH"
+docker run --rm -it -v "$(pwd):$MODELPATH" $IMAGE:$TAG /bin/bash -c "$ASPECT $MODELPATH/$1; cp -r $OUTPUT_DIR $MODELPATH"
