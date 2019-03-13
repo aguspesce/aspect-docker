@@ -9,6 +9,20 @@ container.
 
 You need to install [Docker](https://www.docker.com/) in order to run the script.
 
+Install docker:
+
+    sudo pacman -S docker
+    
+Enable the kernel module in each boot and run the kernel module:
+
+    sudo systemctl enable docker
+    
+    sudo systemctl start docker
+    
+Test the docker:
+
+    sudo docker hello-world
+    
 I don't recommend running this (or any) script as `root`, so it would be better
 to grant your user with the necessary privileges to run `docker`.
 
@@ -17,6 +31,20 @@ impact your system's security. Please see the [Post-installation steps for
 Linux](https://docs.docker.com/install/linux/linux-postinstall/) to get more information
 about this.**
 
+It is necessary to create the docker group and add your user:
+
+Create the docker group:
+
+    sudo groupadd docker
+
+Add your user to the docker group:
+
+    sudo usermod -aG docker $USER
+
+Test:
+
+    docker hello-world
+    
 
 ## Usage
 
