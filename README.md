@@ -7,12 +7,11 @@ container.
 
 ## Requirementes
 
-### installation
-
 You need to install [Docker](https://www.docker.com/) in order to run the script.
 
-If you have [Manjaro](https://manjaro.org/) distribution, the installation steps are:
+You need to enable the kernel module in each boot and run the module.
 
+An example in [Manjaro](https://manjaro.org/) distribution:
 Install docker:
 
     sudo pacman -S docker
@@ -27,9 +26,6 @@ Test the docker:
 
     sudo docker hello-world
 
-### Docker group
-
-It is necessary to create the docker group and add your user.
 
 I don't recommend running this (or any) script as `root`, so it would be better
 to grant your user with the necessary privileges to run `docker`.
@@ -51,8 +47,6 @@ Test:
 
     docker hello-world
  
-
-### Pull the docker
 
 Pull the [ASPECT docker](https://hub.docker.com/r/gassmoeller/aspect/):
 
