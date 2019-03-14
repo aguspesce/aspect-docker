@@ -9,6 +9,8 @@ container.
 
 You need to install [Docker](https://www.docker.com/) in order to run the script.
 
+If you have [Manjaro](https://manjaro.org/) distribution, the installation steps are:
+
 Install docker:
 
     sudo pacman -S docker
@@ -31,9 +33,7 @@ impact your system's security. Please see the [Post-installation steps for
 Linux](https://docs.docker.com/install/linux/linux-postinstall/) to get more information
 about this.**
 
-It is necessary to create the docker group and add your user:
-
-Create the docker group:
+It is necessary to create the docker group and add your user. Therefore, create the docker group:
 
     sudo groupadd docker
 
@@ -45,6 +45,11 @@ Test:
 
     docker hello-world
     
+
+After that,  pull the ASPECT docke:
+
+    docker pull gassmoeller/aspect
+
 
 ## Usage
 
