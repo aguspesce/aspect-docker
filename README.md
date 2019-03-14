@@ -11,20 +11,19 @@ You need to install [Docker](https://www.docker.com/) in order to run the script
 
 You need to enable the kernel module in each boot and run the module.
 
-An example in [Manjaro](https://manjaro.org/) distribution:
-Install docker:
+Test the docker:
+
+    sudo docker hello-world
+
+
+**An example in Manjaro distribution:**
 
     sudo pacman -S docker
     
-Enable the kernel module in each boot and run the kernel module:
-
     sudo systemctl enable docker
     
     sudo systemctl start docker
     
-Test the docker:
-
-    sudo docker hello-world
 
 
 I don't recommend running this (or any) script as `root`, so it would be better
@@ -48,7 +47,7 @@ Test:
     docker hello-world
  
 
-Pull the [ASPECT docker](https://hub.docker.com/r/gassmoeller/aspect/):
+Pull the docker:
 
     docker pull gassmoeller/aspect
 
