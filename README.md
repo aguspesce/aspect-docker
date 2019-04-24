@@ -15,17 +15,6 @@ In order to check if Docker is running correctly, please run:
 
     docker hello-world
 
-
-### Docker installation example: Manjaro
-
-    sudo pacman -S docker
-    
-    sudo systemctl enable docker
-    
-    sudo systemctl start docker
-    
-
-
 I don't recommend running this (or any) script as `root` unless is strictly necessary, so it would be better
 to grant your user with the necessary privileges to run `docker`. Please read the [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/) to get more information.
 
@@ -45,12 +34,20 @@ Logout and login again. Then test if your user has permissions to run Docker:
 
     docker hello-world
  
-
 Pull the docker:
 
     docker pull gassmoeller/aspect
+    
+    
+### Docker installation example: Manjaro
 
+    sudo pacman -S docker
+    
+    sudo systemctl enable docker
+    
+    sudo systemctl start docker
 
+    
 ## Usage
 
 First, clone the repo with:
