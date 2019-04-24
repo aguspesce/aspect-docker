@@ -16,7 +16,7 @@ In order to check if Docker is running correctly, please run:
     docker hello-world
 
 
-**An example in Manjaro distribution:**
+### Docker installation example: Manjaro
 
     sudo pacman -S docker
     
