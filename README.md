@@ -42,7 +42,7 @@ Add your user to the docker group:
 
     sudo usermod -aG docker $USER
 
-Test:
+Logout and login again. Then test if your user has permissions to run Docker:
 
     docker hello-world
  
