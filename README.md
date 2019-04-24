@@ -9,7 +9,7 @@ container.
 
 You need to install [Docker](https://www.docker.com/) in order to run the script.
 
-You need to enable the kernel module in each boot and run the module.
+Please remember to enable the docker kernel module to able to use it.
 
 Test the docker:
 
