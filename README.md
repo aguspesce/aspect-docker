@@ -11,7 +11,7 @@ You need to install [Docker](https://www.docker.com/) in order to run the script
 
 Please remember to enable the docker kernel module to able to use it.
 
-Test the docker:
+In order to check if Docker is running correctly, please run:
 
     sudo docker hello-world
 
