@@ -26,7 +26,7 @@ In order to check if Docker is running correctly, please run:
     
 
 
-I don't recommend running this (or any) script as `root`, so it would be better
+I don't recommend running this (or any) script as `root` unless is strictly necessary, so it would be better
 to grant your user with the necessary privileges to run `docker`.
 
 **WARNING: The docker group grants privileges equivalent to the `root` user. This can
