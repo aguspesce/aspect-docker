@@ -13,7 +13,7 @@ Please remember to enable the docker kernel module to able to use it.
 
 In order to check if Docker is running correctly, please run:
 
-    sudo docker hello-world
+    docker hello-world
 
 
 **An example in Manjaro distribution:**
