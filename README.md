@@ -22,6 +22,8 @@ to grant your user with the necessary privileges to run `docker`. Please read th
 impact your system's security. Please see the[Docker security](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to get more information
 about this.**
 
+#### Add user to docker group
+
 Create the docker group:
 
     sudo groupadd docker
@@ -42,6 +44,8 @@ Pull the docker:
 ### Docker installation example: Manjaro
 
     sudo pacman -S docker
+
+Then enable and start the docker kernel module.
     
     sudo systemctl enable docker
     
