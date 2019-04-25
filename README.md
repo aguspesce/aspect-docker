@@ -19,7 +19,7 @@ I don't recommend running this (or any) script as `root` unless is strictly nece
 to grant your user with the necessary privileges to run `docker`. Please read the [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/) to get more information.
 
 **WARNING: The docker group grants privileges equivalent to the `root` user. This can
-impact your system's security. Please see the[Docker security](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to get more information
+impact your system's security. Please see the [Docker security](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to get more information
 about this.**
 
 #### Add user to docker group
