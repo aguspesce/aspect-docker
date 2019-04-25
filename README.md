@@ -22,7 +22,7 @@ to grant your user with the necessary privileges to run `docker`. Please read th
 impact your system's security. Please see the [Docker security](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to get more information
 about this.**
 
-#### Add user to docker group
+### Add user to docker group
 
 Create the docker group:
 
@@ -35,23 +35,23 @@ Add your user to the docker group:
 Logout and login again. Then test if your user has permissions to run Docker:
 
     docker hello-world
- 
+
 Pull the docker:
 
     docker pull gassmoeller/aspect
-    
-    
+
+
 ### Docker installation example: Manjaro
 
     sudo pacman -S docker
 
 Then enable and start the docker kernel module.
-    
+
     sudo systemctl enable docker
-    
+
     sudo systemctl start docker
 
-    
+
 ## Usage
 
 First, clone the repo with:
