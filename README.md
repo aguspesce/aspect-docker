@@ -9,15 +9,49 @@ container.
 
 You need to install [Docker](https://www.docker.com/) in order to run the script.
 
-I don't recommend running this (or any) script as `root`, so it would be better
-to grant your user with the necessary privileges to run `docker`.
+Please remember to enable the docker kernel module to able to use it.
+
+In order to check if Docker is running correctly, please run:
+
+    docker hello-world
+
+I don't recommend running this (or any) script as `root` unless is strictly necessary, so it would be better
+to grant your user with the necessary privileges to run `docker`. Please read the [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/) to get more information.
 
 **WARNING: The docker group grants privileges equivalent to the `root` user. This can
-impact your system's security. Please see the [Post-installation steps for
-Linux](https://docs.docker.com/install/linux/linux-postinstall/) to get more information
+impact your system's security. Please see the [Docker security](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to get more information
 about this.**
 
+#### Add user to docker group
 
+Create the docker group:
+
+    sudo groupadd docker
+
+Add your user to the docker group:
+
+    sudo usermod -aG docker $USER
+
+Logout and login again. Then test if your user has permissions to run Docker:
+
+    docker hello-world
+ 
+Pull the docker:
+
+    docker pull gassmoeller/aspect
+    
+    
+### Docker installation example: Manjaro
+
+    sudo pacman -S docker
+
+Then enable and start the docker kernel module.
+    
+    sudo systemctl enable docker
+    
+    sudo systemctl start docker
+
+    
 ## Usage
 
 First, clone the repo with:
