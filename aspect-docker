@@ -1,5 +1,5 @@
 #!/bin/bash
-# Written by Santiago Soler <santiago.r.soler@gmail.com> and 
+# Written by Santiago Soler <santiago.r.soler@gmail.com> and
 # Agustina Pesce <pesce.agustina@gmail.com>
 # See https://www.github.com/aguspesce/aspect-docker for more information.
 #
@@ -20,8 +20,41 @@ ASPECT=$GUEST_HOME/aspect/aspect
 # Target where the host directory will be mounted
 MOUNT_DIR=$GUEST_HOME/model
 
-# Get the model filename from the first argument
-MODEL_PATH=$1
+# Get the model filename and the number of processors from the argument
+MODEL_PATH=""
+PROCESSORS=1
+while [[ $# -gt 0 ]]; do
+    argument=$1
+    case $argument in
+        -p|--processors)
+            PROCESSORS=$2
+            shift  # past argument
+            shift  # past value
+            ;;
+        *)  # ASPECT script filename
+            MODEL_PATH=$1
+            shift  # past script filename
+            ;;
+    esac
+done
+
+# Check if model filename has been passed as argument
+if [ -z "$MODEL_PATH" ]; then
+    echo ERROR: You must define a model file in order to run ASPECT
+    exit
+fi
+
+# Check if model filename exists
+if [ ! -f "$MODEL_PATH" ]; then
+    echo ERROR: Model file $MODEL_PATH not found
+    exit
+fi
+
+# Define prefix for using mpirun in case the user wants to parallelize the run
+PARALLEL_PREFIX=""
+if [ $PROCESSORS -gt 1 ]; then
+    PARALLEL_PREFIX="mpirun -np $PROCESSORS"
+fi
 
 # Get output directory from the .prm file
 OUTPUT_DIR_NAME=$(grep -i "set Output directory" $MODEL_PATH | awk '{printf $NF}')
@@ -30,4 +63,4 @@ OUTPUT_DIR_NAME=$(grep -i "set Output directory" $MODEL_PATH | awk '{printf $NF}
 OUTPUT_DIR=$(dirname $MODEL_PATH)/$OUTPUT_DIR
 
 # Run ASPECT
-docker run --rm -it -v "$(pwd):$MOUNT_DIR" $IMAGE:$TAG /bin/bash -c "$ASPECT $MOUNT_DIR/$MODEL_PATH; cp -r $OUTPUT_DIR_NAME $MOUNT_DIR/$OUTPUT_DIR"
+docker run --rm -it -v "$(pwd):$MOUNT_DIR" $IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH; cp -r $OUTPUT_DIR_NAME $MOUNT_DIR/$OUTPUT_DIR"
