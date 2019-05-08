@@ -1,0 +1,38 @@
+#!/bin/bash
+# Written by Santiago Soler <santiago.r.soler@gmail.com> and 
+# Agustina Pesce <pesce.agustina@gmail.com>
+# See https://www.github.com/aguspesce/aspect-docker for more information.
+#
+# Usage:
+#   ./aspect-docker my-model.prm
+
+
+# Docker image and tag
+IMAGE=gassmoeller/aspect
+TAG=latest
+
+# Define HOME directory inside the container
+GUEST_HOME=/home/dealii
+
+# Path to aspect binary inside the container
+ASPECT=$GUEST_HOME/aspect/aspect
+
+# Target where the host directory will be mounted
+MOUNT_DIR=$GUEST_HOME/model
+
+# Get the model filename from the first argument
+MODEL_PATH=$1
+
+# Get output directory from the .prm file
+OUTPUT_DIR_NAME=$(grep -i "set Output directory" $MODEL_PATH | awk '{printf $NF}')
+
+# Set the path where the output will be copied
+OUTPUT_DIR=$(dirname $MODEL_PATH)/$OUTPUT_DIR
+
+# Ask the number of processors to run the program in parallel
+echo "Number of processors: " 
+read PROCESSORS
+
+# Run ASPECT
+docker run --rm -it -v "$(pwd):$MOUNT_DIR" $IMAGE:$TAG /bin/bash -c mpirun -np $PROCESSORS "$ASPECT $MOUNT_DIR/$MODEL_PATH; cp -r $OUTPUT_DIR_NAME $MOUNT_DIR/$OUTPUT_DIR"
+
