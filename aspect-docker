@@ -7,25 +7,23 @@
 #   ./aspect-docker my-model.prm
 
 
-# Docker image and tag
-IMAGE=gassmoeller/aspect
-TAG=latest
+# Define function to print usage help
+function usage() {
+	echo "Usage: $0 [-p PROCESSORS] <model-file>"
+}
 
-# Define HOME directory inside the container
-GUEST_HOME=/home/dealii
 
-# Path to aspect binary inside the container
-ASPECT=$GUEST_HOME/aspect/aspect
-
-# Target where the host directory will be mounted
-MOUNT_DIR=$GUEST_HOME/model
-
-# Get the model filename and the number of processors from the argument
+# --------------
+# Read arguments
+# --------------
 MODEL_PATH=""
 PROCESSORS=1
+
 while [[ $# -gt 0 ]]; do
     argument=$1
     case $argument in
+		-h|--help)
+			usage && exit 0;;
         -p|--processors)
             PROCESSORS=$2
             shift  # past argument
@@ -40,8 +38,7 @@ done
 
 # Check if model filename has been passed as argument
 if [ -z "$MODEL_PATH" ]; then
-    echo ERROR: You must define a model file in order to run ASPECT
-    exit
+    usage && exit 0
 fi
 
 # Check if model filename exists
@@ -56,11 +53,32 @@ if [ $PROCESSORS -gt 1 ]; then
     PARALLEL_PREFIX="mpirun -np $PROCESSORS"
 fi
 
+
+# ----------------------------------------
+# Define variables related to Docker image
+# ----------------------------------------
+
+# Docker image and tag
+IMAGE=gassmoeller/aspect
+TAG=latest
+
+# Define HOME directory inside the container
+GUEST_HOME=/home/dealii
+
+# Path to aspect binary inside the container
+ASPECT=$GUEST_HOME/aspect/aspect
+
+# Target where the host directory will be mounted
+MOUNT_DIR=$GUEST_HOME/model
+
 # Get output directory from the .prm file
 OUTPUT_DIR_NAME=$(grep -i "set Output directory" $MODEL_PATH | awk '{printf $NF}')
 
 # Set the path where the output will be copied
 OUTPUT_DIR=$(dirname $MODEL_PATH)/$OUTPUT_DIR
 
+
+# ----------
 # Run ASPECT
+# ----------
 docker run --rm -it -v "$(pwd):$MOUNT_DIR" $IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH; cp -r $OUTPUT_DIR_NAME $MOUNT_DIR/$OUTPUT_DIR"
