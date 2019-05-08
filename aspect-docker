@@ -1,6 +1,7 @@
 #!/bin/bash
-# Written by Santiago Soler <santiago.r.soler@gmail.com>
-# See https://www.github.com/santisoler/aspect-docker for more information.
+# Written by Santiago Soler <santiago.r.soler@gmail.com> and 
+# Agustina Pesce <pesce.agustina@gmail.com>
+# See https://www.github.com/aguspesce/aspect-docker for more information.
 #
 # Usage:
 #   ./aspect-docker my-model.prm
