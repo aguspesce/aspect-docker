@@ -15,12 +15,15 @@ In order to check if Docker is running correctly, please run:
 
     docker hello-world
 
-I don't recommend running this (or any) script as `root` unless is strictly necessary, so it would be better
-to grant your user with the necessary privileges to run `docker`. Please read the [Post-installation steps for Linux](https://docs.docker.com/install/linux/linux-postinstall/) to get more information.
+I don't recommend running this (or any) script as `root` unless is strictly necessary,
+so it would be better to grant your user with the necessary privileges to run `docker`.
+Please read the [Post-installation steps for Linux](
+https://docs.docker.com/install/linux/linux-postinstall/) to get more information.
 
 **WARNING: The docker group grants privileges equivalent to the `root` user. This can
-impact your system's security. Please see the [Docker security](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to get more information
-about this.**
+impact your system's security. Please see the [Docker security](
+https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface) to get
+more information about this.**
 
 ### Add user to docker group
 
@@ -71,5 +74,10 @@ Copy the file to the directory where your `.prm` file is located and navigate th
 Then you can run `ASPECT` with just the following line:
 
     ./aspect-docker my-model.prm
+
+You can use the option `-p` to run the program in parallel with a given number of
+processors:
+
+    ./aspect-docker -p processors my-model.prm
 
 After finished, the output will be inside the parent directory of the `.prm` file.
