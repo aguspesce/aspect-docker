@@ -81,6 +81,20 @@ CONTAINER_NAME=aspect_docker
 # ----------
 # Run ASPECT
 # ----------
-docker run --name $CONTAINER_NAME -it --volume "$(pwd):$MOUNT_DIR:ro" $IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH"
+# Check if output dir exists on host
+if [ -d $(pwd)/$OUTPUT_DIR_NAME ]; then
+    echo "ERROR: Output directory $OUTPUT_DIR_NAME already exists."
+    exit
+fi
+
+# Run an aspect container
+docker run \
+--name $CONTAINER_NAME \  # Define container name
+-it --volume "$(pwd):$MOUNT_DIR:ro" \  # Mount host pwd as read-only
+$IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH"
+
+# Retrieve output directory from the container
 docker cp $CONTAINER_NAME:$ASPECT_DIR/$OUTPUT_DIR_NAME .
+
+# Remove the container because it's not longer needed
 docker rm $CONTAINER_NAME
