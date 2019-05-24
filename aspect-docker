@@ -66,19 +66,32 @@ TAG=latest
 GUEST_HOME=/home/dealii
 
 # Path to aspect binary inside the container
-ASPECT=$GUEST_HOME/aspect/aspect
+ASPECT_DIR=$GUEST_HOME/aspect
+ASPECT=$ASPECT_DIR/aspect
 
 # Target where the host directory will be mounted
-MOUNT_DIR=$GUEST_HOME/model
+MOUNT_DIR=$ASPECT_DIR/model
 
 # Get output directory from the .prm file
 OUTPUT_DIR_NAME=$(grep -i "set Output directory" $MODEL_PATH | awk '{printf $NF}')
 
-# Set the path where the output will be copied
-OUTPUT_DIR=$(dirname $MODEL_PATH)/$OUTPUT_DIR
-
+# Container name
+CONTAINER_NAME=aspect_docker
 
 # ----------
 # Run ASPECT
 # ----------
-docker run --rm -it -v "$(pwd):$MOUNT_DIR" $IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH; cp -r $OUTPUT_DIR_NAME $MOUNT_DIR/$OUTPUT_DIR"
+# Check if output dir exists on host
+if [ -d $(pwd)/$OUTPUT_DIR_NAME ]; then
+    echo "ERROR: Output directory $OUTPUT_DIR_NAME already exists."
+    exit
+fi
+
+# Run an aspect container
+docker run --name $CONTAINER_NAME -it --volume "$(pwd):$MOUNT_DIR:ro" $IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH"
+
+# Retrieve output directory from the container
+docker cp $CONTAINER_NAME:$ASPECT_DIR/$OUTPUT_DIR_NAME .
+
+# Remove the container because it's not longer needed
+docker rm $CONTAINER_NAME
