@@ -78,6 +78,9 @@ OUTPUT_DIR_NAME=$(grep -i "set Output directory" $MODEL_PATH | awk '{printf $NF}
 # Container name
 CONTAINER_NAME=aspect_docker
 
+# Start tracking computation time
+SECONDS=0
+
 # ----------
 # Run ASPECT
 # ----------
@@ -95,3 +98,6 @@ docker cp $CONTAINER_NAME:$ASPECT_DIR/$OUTPUT_DIR_NAME .
 
 # Remove the container because it's not longer needed
 docker rm $CONTAINER_NAME
+
+
+echo "FINISHED! Elapsed computation time: $SECONDS s"
