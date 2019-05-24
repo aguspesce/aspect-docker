@@ -88,10 +88,7 @@ if [ -d $(pwd)/$OUTPUT_DIR_NAME ]; then
 fi
 
 # Run an aspect container
-docker run \
---name $CONTAINER_NAME \  # Define container name
--it --volume "$(pwd):$MOUNT_DIR:ro" \  # Mount host pwd as read-only
-$IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH"
+docker run --name $CONTAINER_NAME -it --volume "$(pwd):$MOUNT_DIR:ro" $IMAGE:$TAG /bin/bash -c "$PARALLEL_PREFIX $ASPECT $MOUNT_DIR/$MODEL_PATH"
 
 # Retrieve output directory from the container
 docker cp $CONTAINER_NAME:$ASPECT_DIR/$OUTPUT_DIR_NAME .
