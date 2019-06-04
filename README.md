@@ -59,7 +59,7 @@ Then enable and start the docker kernel module.
 
 First, clone the repo with:
 
-    git clone https://www.github.com/santisoler/aspect-docker
+    git clone https://www.github.com/aguspesce/aspect-docker
 
 Then navigate to the recently created directory:
 
